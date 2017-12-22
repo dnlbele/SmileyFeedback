@@ -84,7 +84,6 @@ public class AdminDialogFragment extends DialogFragment {
 
         disableFormAndShowDialog();
         new FillQuestionsAsyncTask().execute();
-        //fillQuestions();
 
         return dialogBuilder.create();
     }
