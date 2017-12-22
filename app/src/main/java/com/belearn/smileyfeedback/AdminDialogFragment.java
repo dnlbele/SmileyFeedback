@@ -38,7 +38,7 @@ import java.util.concurrent.TimeoutException;
 
 public class AdminDialogFragment extends DialogFragment {
 
-    private static final int WINDOW_HEIGHT = 500;
+    private static final int WINDOW_HEIGHT = 550;
     private EditText etLocation;
     private EditText etQuestion;
     private Spinner spQuestions;
@@ -154,7 +154,8 @@ public class AdminDialogFragment extends DialogFragment {
 
     private boolean assignFormIsValid() {
         if (etLocation.getText().toString().trim().length() == 0){
-            Toast.makeText(mainActivity, R.string.please_insert_location, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(mainActivity, R.string.please_insert_location, Toast.LENGTH_SHORT).show();
+            etLocation.setError(getString(R.string.please_insert_location));
             etLocation.requestFocus();
             return false;
         }
@@ -175,7 +176,8 @@ public class AdminDialogFragment extends DialogFragment {
 
     private boolean createFormIsValid() {
         if (etQuestion.getText().toString().trim().length() == 0){
-            Toast.makeText(mainActivity, R.string.please_insert_question, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(mainActivity, R.string.please_insert_question, Toast.LENGTH_SHORT).show();
+            etQuestion.setError(getString(R.string.please_insert_question));
             etQuestion.requestFocus();
             return false;
         }
