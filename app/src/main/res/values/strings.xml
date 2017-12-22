@@ -1,0 +1,34 @@
+<resources>
+    <string name="app_name">SmileyFeedback</string>
+    <string name="manage_question">Manage question</string>
+    <string name="insert_password">Insert password</string>
+    <string name="wrong_password">Wrong passsword</string>
+    <string name="password">Password</string>
+    <string name="location">Location</string>
+    <string name="please_insert_location">Please insert location</string>
+    <string name="please_insert_question">Please insert question</string>
+    <string name="algebra">Algebra</string>
+    <string name="choose_question">Choose question</string>
+    <string name="smiley_feedback">Smiley feedback</string>
+    <string name="unable_to_send_smile">Unable to send smile</string>
+    <string name="thank_you_for_your_opinion">Thank you for your opinion</string>
+    <string name="assign">Assign</string>
+    <string name="assign_location">Assign location</string>
+    <string name="create_new_question">Create new question</string>
+    <string name="question">Question</string>
+    <string name="create">Create</string>
+    <string name="archive_question">Archive question</string>
+    <string name="archive">Archive</string>
+    <string name="unable_to_archive_question">Unable to archive question</string>
+    <string name="question_archived">Question archived</string>
+    <string name="unable_to_create_question">Unable to create question</string>
+    <string name="question_created">Question created</string>
+    <string name="please_select_question">Please select question</string>
+    <string name="please_insert_password">Please insert password</string>
+    <string name="cancel">Cancel</string>
+    <string name="close_console">Close console</string>
+    <string name="unable_to_connect_to_server">Unable to connect to server</string>
+    <string name="enter">Enter</string>
+    <string name="to_question">to question</string>
+    <string name="admin_console">Admin console</string>
+</resources>

@@ -1,0 +1,118 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp"
+    android:descendantFocusability="beforeDescendants"
+    android:focusableInTouchMode="true"
+    android:background="@drawable/algebra_bg_left"
+    android:orientation="vertical">
+    <TextView
+        android:textSize="30sp"
+        android:textColor="@color/colorPrimaryDark"
+        android:textStyle="bold"
+        android:text="@string/admin_console"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:layout_gravity="right"
+        android:textSize="25sp"
+        android:textColor="@color/colorPrimary"
+        android:textStyle="bold|italic"
+        android:text="@string/create_new_question"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <EditText
+        android:layout_gravity="right"
+        android:imeOptions="flagNoExtractUi"
+        android:hint="@string/please_insert_question"
+        android:textSize="25sp"
+        android:id="@+id/etQuestion"
+        android:layout_width="550dp"
+        android:layout_height="wrap_content"
+        android:inputType="text" />
+    <Button
+        android:layout_marginTop="5dp"
+        android:padding="10dp"
+        android:id="@+id/btnCreate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:background="@drawable/custom_button_ok"
+        android:text="@string/create_new_question" />
+    <ProgressBar
+        android:background="@drawable/progress"
+        android:id="@+id/pbDialog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:minHeight="50dp"
+        android:minWidth="50dp"
+        android:visibility="invisible" />
+    <TextView
+        android:textColor="@color/colorPrimary"
+        android:textSize="25sp"
+        android:layout_gravity="right"
+        android:textStyle="bold|italic"
+        android:text="@string/assign_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <EditText
+        android:layout_gravity="right"
+        android:imeOptions="flagNoExtractUi"
+        android:hint="@string/please_insert_location"
+        android:textSize="25sp"
+        android:id="@+id/etLocation"
+        android:layout_width="550dp"
+        android:layout_height="wrap_content"
+        android:inputType="text" />
+    <TextView
+        android:textColor="@color/colorPrimary"
+        android:textSize="25sp"
+        android:textStyle="bold|italic"
+        android:layout_gravity="right"
+        android:text="@string/to_question"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <Spinner
+        android:layout_gravity="right"
+        android:layout_marginTop="10dp"
+        android:id="@+id/spQuestions"
+        android:layout_width="550dp"
+        android:layout_height="wrap_content"/>
+    <LinearLayout
+        android:layout_marginTop="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:padding="10dp"
+            android:id="@+id/btnClose"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/custom_button_ok"
+            android:text="@string/close_console" />
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+        <Button
+            android:padding="10dp"
+            android:layout_marginRight="20dp"
+            android:id="@+id/btnArchive"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:background="@drawable/custom_button_danger"
+            android:text="@string/archive_question" />
+        <Button
+            android:padding="10dp"
+            android:layout_marginLeft="50dp"
+            android:id="@+id/btnAssign"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:background="@drawable/custom_button_ok"
+            android:text="@string/assign" />
+    </LinearLayout>
+
+</LinearLayout>
