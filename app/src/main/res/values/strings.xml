@@ -24,7 +24,7 @@
     <string name="please_insert_password">Please insert password</string>
     <string name="cancel">Cancel</string>
     <string name="close_console">Close console</string>
-    <string name="unable_to_connect_to_server">Unable to connect to server!\gitnPlease check your internet connection or notify the administrator</string>
+    <string name="unable_to_connect_to_server">Unable to connect to server!\nPlease check your internet connection or notify the administrator</string>
     <string name="enter">Enter</string>
     <string name="to_question">to question</string>
     <string name="admin_console">Admin console</string>
