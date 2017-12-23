@@ -38,7 +38,7 @@ import java.util.concurrent.TimeoutException;
 
 public class AdminDialogFragment extends DialogFragment {
 
-    private static final int WINDOW_HEIGHT = 550;
+    private static final int WINDOW_HEIGHT = 560;
     private EditText etLocation;
     private EditText etQuestion;
     private Spinner spQuestions;

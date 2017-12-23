@@ -24,14 +24,17 @@ import java.security.Key;
 
 public class AuthenticationDialogFragment extends DialogFragment {
 
+    private static final int WINDOW_WIDTH = 450;
+    private static final int WINDOW_HEIGHT = 180;
+
     private static final String PASSWORD = "p@ssw0rd";
     //private static final String PASSWORD = "";
 
     @Override
     public void onResume() {
         ViewGroup.LayoutParams params = getDialog().getWindow().getAttributes();
-        params.width = 450;
-        params.height = 180;
+        params.width = WINDOW_WIDTH;
+        params.height = WINDOW_HEIGHT;
         getDialog().getWindow().setAttributes((android.view.WindowManager.LayoutParams) params);
         super.onResume();
     }
