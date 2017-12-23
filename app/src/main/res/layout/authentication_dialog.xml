@@ -1,7 +1,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="10dp"
+    android:paddingRight="25dp"
+    android:background="@drawable/algebra_bg_left_password"
     android:orientation="vertical">
 
     <EditText
@@ -9,8 +10,9 @@
         android:imeOptions="flagNoExtractUi"
         android:hint="@string/please_insert_password"
         android:textSize="25sp"
+        android:layout_gravity="right"
         android:id="@+id/etPassword"
-        android:layout_width="match_parent"
+        android:layout_width="220dp"
         android:layout_height="wrap_content"
         android:inputType="textPassword" />
     <Button

@@ -12,7 +12,7 @@ import com.belearn.smileyfeedback.R;
 
 public class AnimationUtils {
     public static void rotate(View view) {
-        AnimatorSet set = (AnimatorSet) AnimatorInflater.loadAnimator(view.getContext(), R.animator.flip);
+        AnimatorSet set = (AnimatorSet) AnimatorInflater.loadAnimator(view.getContext(), R.animator.rotate);
         set.setTarget(view);
         set.start();
     }

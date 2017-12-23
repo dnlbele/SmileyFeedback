@@ -8,6 +8,7 @@ import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -25,6 +26,15 @@ public class AuthenticationDialogFragment extends DialogFragment {
 
     private static final String PASSWORD = "p@ssw0rd";
     //private static final String PASSWORD = "";
+
+    @Override
+    public void onResume() {
+        ViewGroup.LayoutParams params = getDialog().getWindow().getAttributes();
+        params.width = 450;
+        params.height = 180;
+        getDialog().getWindow().setAttributes((android.view.WindowManager.LayoutParams) params);
+        super.onResume();
+    }
 
     private MainActivity mainActivity;
 

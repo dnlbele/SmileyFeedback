@@ -17,7 +17,7 @@
     <TextView
         android:layout_gravity="right"
         android:textSize="25sp"
-        android:textColor="@color/colorPrimary"
+        android:textColor="#c21b67"
         android:textStyle="bold|italic"
         android:text="@string/create_new_question"
         android:layout_width="wrap_content"
@@ -28,7 +28,7 @@
         android:hint="@string/please_insert_question"
         android:textSize="25sp"
         android:id="@+id/etQuestion"
-        android:layout_width="550dp"
+        android:layout_width="450dp"
         android:layout_height="wrap_content"
         android:inputType="text" />
     <Button
@@ -50,7 +50,7 @@
         android:minWidth="50dp"
         android:visibility="invisible" />
     <TextView
-        android:textColor="@color/colorPrimary"
+        android:textColor="#d65c47"
         android:textSize="25sp"
         android:layout_gravity="right"
         android:textStyle="bold|italic"
@@ -63,12 +63,12 @@
         android:hint="@string/please_insert_location"
         android:textSize="25sp"
         android:id="@+id/etLocation"
-        android:layout_width="550dp"
+        android:layout_width="450dp"
         android:layout_height="wrap_content"
         android:inputType="text" />
     <TextView
         android:layout_marginTop="30dp"
-        android:textColor="@color/colorPrimary"
+        android:textColor="#e27526"
         android:textSize="25sp"
         android:textStyle="bold|italic"
         android:layout_gravity="right"
@@ -79,7 +79,7 @@
         android:layout_gravity="right"
         android:layout_marginTop="10dp"
         android:id="@+id/spQuestions"
-        android:layout_width="550dp"
+        android:layout_width="450dp"
         android:layout_height="wrap_content"/>
     <LinearLayout
         android:layout_marginTop="20dp"
