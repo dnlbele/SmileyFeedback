@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void fixActionBar() {
-        Drawable d=getResources().getDrawable(R.drawable.algebra_actionbar_bg_black);
+        Drawable d=getResources().getDrawable(R.drawable.algebra_top);
         getSupportActionBar().setBackgroundDrawable(d);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
