@@ -31,6 +31,8 @@ public class AuthenticationDialogFragment extends DialogFragment {
     private static final String PASSWORD = "p@ssw0rd";
     private static final long TIMEOUT = 5000;
     //private static final String PASSWORD = "";
+    private Handler timeoutHandler;
+    private Runnable timeoutRunnable;
 
     @Override
     public void onResume() {
@@ -66,10 +68,17 @@ public class AuthenticationDialogFragment extends DialogFragment {
             } else {
                 Toast.makeText(getContext(), R.string.wrong_password, Toast.LENGTH_SHORT).show();
             }
+            if (timeoutHandler != null && timeoutRunnable != null) {
+                timeoutHandler.removeCallbacks(timeoutRunnable);
+            }
             AuthenticationDialogFragment.this.dismiss();
         });
 
         return dialogBuilder.create();
     }
 
+    public void setTimeoutHandler(Handler handler, Runnable runnable) {
+        timeoutHandler = handler;
+        timeoutRunnable = runnable;
+    }
 }

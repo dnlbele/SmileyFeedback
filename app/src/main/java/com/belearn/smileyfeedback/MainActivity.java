@@ -1,10 +1,10 @@
 package com.belearn.smileyfeedback;
 
-import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Handler;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,7 +12,6 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,7 +20,6 @@ import com.belearn.smileyfeedback.model.Question;
 import com.belearn.smileyfeedback.utils.AnimationUtils;
 import com.belearn.smileyfeedback.utils.DbUtil;
 
-import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
@@ -33,6 +31,7 @@ import java.util.concurrent.TimeoutException;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final long TIMEOUT_DIALOG = 10000;
     private Question question = null;
     private String location = null;
     private TextView tvQuestion;
@@ -66,16 +65,31 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.miManage:
-                login();
+                showAutheticationDialog();
                 return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
-    private void login() {
+    private void showAutheticationDialog() {
         AuthenticationDialogFragment adf = new AuthenticationDialogFragment();
         adf.setMainActivity(this);
         adf.show(getSupportFragmentManager(), AuthenticationDialogFragment.class.getName());
+
+        dissmissAuthenticationDialogDelayed(adf);
+    }
+
+    private void dissmissAuthenticationDialogDelayed(AuthenticationDialogFragment adf) {
+        final Handler handler  = new Handler();
+        final Runnable runnable = () -> {
+            Fragment dialog = getSupportFragmentManager().findFragmentByTag(AuthenticationDialogFragment.class.getName());
+            if (dialog != null) {
+                DialogFragment df = (DialogFragment) dialog;
+                df.dismiss();
+            }
+        };
+        adf.setTimeoutHandler(handler, runnable);
+        handler.postDelayed(runnable, TIMEOUT_DIALOG);
     }
 
     public void showAdminDialog() {
