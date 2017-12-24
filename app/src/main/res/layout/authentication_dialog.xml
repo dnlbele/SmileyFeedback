@@ -10,6 +10,7 @@
         android:imeOptions="flagNoExtractUi"
         android:hint="@string/please_insert_password"
         android:textSize="25sp"
+        android:textColor="@color/colorPrimary"
         android:layout_gravity="right"
         android:id="@+id/etPassword"
         android:layout_width="220dp"
