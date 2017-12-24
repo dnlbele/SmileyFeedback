@@ -12,7 +12,7 @@
     android:orientation="vertical">
     <TextView
         android:textSize="30sp"
-        android:textColor="@color/colorPrimaryDark"
+        android:textColor="#c21b67"
         android:textStyle="bold"
         android:text="@string/admin_console"
         android:layout_width="wrap_content"
