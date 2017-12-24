@@ -25,39 +25,39 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <ImageView
-            android:id="@+id/ivGrade1"
-            android:src="@drawable/smile1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:onClick="createFeedback" />
-        <ImageView
-            android:id="@+id/ivGrade2"
-            android:src="@drawable/smile2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:onClick="createFeedback" />
-        <ImageView
-            android:id="@+id/ivGrade3"
-            android:src="@drawable/smile3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
+            android:id="@+id/ivGrade5"
+            android:src="@drawable/emoticon5"
+            android:layout_width="180dp"
+            android:layout_height="180dp"
+            android:layout_margin="10dp"
             android:onClick="createFeedback" />
         <ImageView
             android:id="@+id/ivGrade4"
-            android:src="@drawable/smile4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
+            android:src="@drawable/emoticon4"
+            android:layout_width="180dp"
+            android:layout_height="180dp"
+            android:layout_margin="10dp"
             android:onClick="createFeedback" />
         <ImageView
-            android:id="@+id/ivGrade5"
-            android:src="@drawable/smile5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
+            android:id="@+id/ivGrade3"
+            android:src="@drawable/emoticon3"
+            android:layout_width="180dp"
+            android:layout_height="180dp"
+            android:layout_margin="10dp"
+            android:onClick="createFeedback" />
+        <ImageView
+            android:id="@+id/ivGrade2"
+            android:src="@drawable/emoticon2"
+            android:layout_width="180dp"
+            android:layout_height="180dp"
+            android:layout_margin="10dp"
+            android:onClick="createFeedback" />
+        <ImageView
+            android:id="@+id/ivGrade1"
+            android:src="@drawable/emoticon1"
+            android:layout_width="180dp"
+            android:layout_height="180dp"
+            android:layout_margin="10dp"
             android:onClick="createFeedback" />
     </LinearLayout>
 

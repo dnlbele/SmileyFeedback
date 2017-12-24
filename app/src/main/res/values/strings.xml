@@ -1,12 +1,12 @@
 <resources>
-    <string name="app_name">SmileyFeedback</string>
+    <string name="app_name">Emoticon Feedback</string>
     <string name="manage_question">Manage question</string>
     <string name="insert_password">Insert password</string>
-    <string name="wrong_password">Wrong passsword</string>
+    <string name="wrong_password">Wrong password</string>
     <string name="please_insert_location">Please insert location</string>
     <string name="please_insert_question">Please insert question</string>
     <string name="choose_question">Choose question</string>
-    <string name="smiley_feedback">Smiley feedback</string>
+    <string name="emoticon_feedback">Emoticon Feedback</string>
     <string name="unable_to_send_smile">Unable to send smile</string>
     <string name="thank_you_for_your_opinion">Thank you for your opinion</string>
     <string name="assign">Assign</string>
