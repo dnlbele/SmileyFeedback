@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
@@ -28,6 +29,7 @@ public class AuthenticationDialogFragment extends DialogFragment {
     private static final int WINDOW_HEIGHT = 180;
 
     private static final String PASSWORD = "p@ssw0rd";
+    private static final long TIMEOUT = 5000;
     //private static final String PASSWORD = "";
 
     @Override
@@ -66,6 +68,7 @@ public class AuthenticationDialogFragment extends DialogFragment {
             }
             AuthenticationDialogFragment.this.dismiss();
         });
+
         return dialogBuilder.create();
     }
 

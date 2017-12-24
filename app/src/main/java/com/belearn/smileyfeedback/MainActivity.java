@@ -1,8 +1,10 @@
 package com.belearn.smileyfeedback;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
