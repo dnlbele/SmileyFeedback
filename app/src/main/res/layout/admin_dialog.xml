@@ -27,7 +27,7 @@
         android:layout_height="wrap_content" />
     <EditText
         android:layout_gravity="right"
-        android:imeOptions="flagNoExtractUi"
+        android:imeOptions="flagNoExtractUi|actionDone"
         android:hint="@string/please_insert_question"
         android:textColor="@color/colorPrimary"
         android:textSize="25sp"
