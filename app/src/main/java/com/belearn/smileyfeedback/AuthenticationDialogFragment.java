@@ -1,8 +1,6 @@
 package com.belearn.smileyfeedback;
 
 import android.app.Dialog;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.DialogFragment;
@@ -10,14 +8,10 @@ import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
-import com.belearn.smileyfeedback.utils.KeyboardUtils;
-
-import java.security.Key;
+import com.belearn.smileyfeedback.utils.Utils;
 
 /**
  * Created by dnlbe on 12/20/2017.
@@ -27,10 +21,8 @@ public class AuthenticationDialogFragment extends DialogFragment {
 
     private static final int WINDOW_WIDTH = 450;
     private static final int WINDOW_HEIGHT = 180;
-
     private static final String PASSWORD = "p@ssw0rd";
-    private static final long TIMEOUT = 5000;
-    //private static final String PASSWORD = "";
+
     private Handler timeoutHandler;
     private Runnable timeoutRunnable;
 
@@ -62,11 +54,11 @@ public class AuthenticationDialogFragment extends DialogFragment {
         final Button btnEnter = dialogView.findViewById(R.id.btnEnter);
 
         btnEnter.setOnClickListener(view -> {
-            KeyboardUtils.closeKeyboard(mainActivity, etPassword);
+            Utils.closeKeyboard(mainActivity, etPassword);
             if (PASSWORD.equals(etPassword.getText().toString())) {
                 mainActivity.showAdminDialog();
             } else {
-                Toast.makeText(getContext(), R.string.wrong_password, Toast.LENGTH_SHORT).show();
+                Utils.showToastAtBottom(getContext(), R.string.wrong_password);
             }
             if (timeoutHandler != null && timeoutRunnable != null) {
                 timeoutHandler.removeCallbacks(timeoutRunnable);

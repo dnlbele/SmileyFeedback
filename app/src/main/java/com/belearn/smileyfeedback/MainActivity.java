@@ -8,17 +8,16 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.belearn.smileyfeedback.model.AsyncResult;
 import com.belearn.smileyfeedback.model.Question;
 import com.belearn.smileyfeedback.utils.AnimationUtils;
 import com.belearn.smileyfeedback.utils.DbUtil;
+import com.belearn.smileyfeedback.utils.Utils;
 
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
@@ -107,16 +106,13 @@ public class MainActivity extends AppCompatActivity {
         if (formIsValid()) {
             AnimationUtils.rotate(view);
             new CreateFeedbackAsyncTask().execute(grade);
-            //new Thread(() -> DbUtil.createFeedback(question.getIdQuestion(), location, grade)).start();
-            Toast toast = Toast.makeText(this, R.string.thank_you_for_your_opinion, Toast.LENGTH_SHORT);
-            toast.setGravity(Gravity.CENTER, 0, 0);
-            toast.show();
+            Utils.showToastAtBottom(this, R.string.thank_you_for_your_opinion);
         }
     }
 
     private boolean formIsValid() {
         if (location == null || location.trim().length() == 0 || question == null){
-            Toast.makeText(this, R.string.please_insert_question, Toast.LENGTH_SHORT).show();
+            Utils.showToastAtBottom(this, R.string.please_insert_question);
             return false;
         }
         return true;
@@ -163,7 +159,7 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(AsyncResult asyncResult) {
             super.onPostExecute(asyncResult);
             if (asyncResult.isException()) {
-                Toast.makeText(MainActivity.this, R.string.unable_to_connect_to_server, Toast.LENGTH_SHORT).show();
+                Utils.showToastAtBottom(MainActivity.this, R.string.unable_to_connect_to_server);
             }
         }
     }

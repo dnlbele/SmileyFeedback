@@ -20,7 +20,7 @@ import android.widget.Toast;
 import com.belearn.smileyfeedback.model.AsyncResult;
 import com.belearn.smileyfeedback.model.Question;
 import com.belearn.smileyfeedback.utils.DbUtil;
-import com.belearn.smileyfeedback.utils.KeyboardUtils;
+import com.belearn.smileyfeedback.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -131,7 +131,7 @@ public class AdminDialogFragment extends DialogFragment {
         });
         btnCreate.setOnClickListener(view -> {
             if (createFormIsValid()) {
-                KeyboardUtils.closeKeyboard(mainActivity, etQuestion);
+                Utils.closeKeyboard(mainActivity, etQuestion);
                 disableFormAndShowDialog();
                 new CreateQuestionAsyncTask().execute();
             }
@@ -153,7 +153,6 @@ public class AdminDialogFragment extends DialogFragment {
 
     private boolean assignFormIsValid() {
         if (etLocation.getText().toString().trim().length() == 0){
-            //Toast.makeText(mainActivity, R.string.please_insert_location, Toast.LENGTH_SHORT).show();
             etLocation.setError(getString(R.string.please_insert_location));
             etLocation.requestFocus();
             return false;
@@ -175,7 +174,6 @@ public class AdminDialogFragment extends DialogFragment {
 
     private boolean createFormIsValid() {
         if (etQuestion.getText().toString().trim().length() == 0){
-            //Toast.makeText(mainActivity, R.string.please_insert_question, Toast.LENGTH_SHORT).show();
             etQuestion.setError(getString(R.string.please_insert_question));
             etQuestion.requestFocus();
             return false;
@@ -232,7 +230,7 @@ public class AdminDialogFragment extends DialogFragment {
         protected void onPostExecute(Boolean exception) {
             super.onPostExecute(exception);
             if (exception) {
-                Toast.makeText(mainActivity, R.string.unable_to_connect_to_server, Toast.LENGTH_SHORT).show();
+                Utils.showToastAtBottom(getContext(), R.string.unable_to_connect_to_server);
                 dismiss();
             } else {
                 setupAdapter();
@@ -274,7 +272,7 @@ public class AdminDialogFragment extends DialogFragment {
         protected void onPostExecute(AsyncResult asyncResult) {
             super.onPostExecute(asyncResult);
             if (asyncResult.isException()) {
-                Toast.makeText(mainActivity, R.string.unable_to_connect_to_server, Toast.LENGTH_SHORT).show();
+                Utils.showToastAtBottom(getContext(), R.string.unable_to_connect_to_server);
                 dismiss();
             } else if (asyncResult.getResult() == 0) {
                 Toast.makeText(mainActivity, R.string.unable_to_create_question, Toast.LENGTH_SHORT).show();
@@ -308,7 +306,6 @@ public class AdminDialogFragment extends DialogFragment {
                 Log.e(getClass().getName(), ""+e.getMessage());
                 exception = true;
             }
-
             return new AsyncResult(exception, result);
         }
 
@@ -316,7 +313,7 @@ public class AdminDialogFragment extends DialogFragment {
         protected void onPostExecute(AsyncResult asyncResult) {
             super.onPostExecute(asyncResult);
             if (asyncResult.isException()) {
-                Toast.makeText(mainActivity, R.string.unable_to_connect_to_server, Toast.LENGTH_SHORT).show();
+                Utils.showToastAtBottom(getContext(), R.string.unable_to_connect_to_server);
                 dismiss();
             } else if (asyncResult.getResult() == 0) {
                 Toast.makeText(mainActivity, R.string.unable_to_archive_question, Toast.LENGTH_SHORT).show();
