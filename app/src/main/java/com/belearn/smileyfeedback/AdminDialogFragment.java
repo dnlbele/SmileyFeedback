@@ -274,20 +274,20 @@ public class AdminDialogFragment extends DialogFragment {
                 locations = futureLocation.get(10, TimeUnit.SECONDS);
             } catch (InterruptedException e) {
                 exception = true;
-                Log.e(getClass().getName(), ""+e.getMessage());
+                Log.e(getClass().getName(), Log.getStackTraceString(e));
             } catch (ExecutionException e) {
                 exception = true;
-                Log.e(getClass().getName(), ""+e.getMessage());
+                Log.e(getClass().getName(), Log.getStackTraceString(e));
             } catch (TimeoutException e) {
                 exception = true;
-                Log.e(getClass().getName(), ""+e.getMessage());
+                Log.e(getClass().getName(), Log.getStackTraceString(e));
             } finally {
                 if (executor != null) {
                     try {
                         executor.shutdown();
                     } catch (Exception e) {
                         exception = true;
-                        Log.e(getClass().getName(), ""+e.getMessage());
+                        Log.e(getClass().getName(), Log.getStackTraceString(e));
                     }
                 }
             }
@@ -318,20 +318,20 @@ public class AdminDialogFragment extends DialogFragment {
                 questions = future.get(10, TimeUnit.SECONDS);
             } catch (InterruptedException e) {
                 exception = true;
-                Log.e(getClass().getName(), ""+e.getMessage());
+                Log.e(getClass().getName(), Log.getStackTraceString(e));
             } catch (ExecutionException e) {
                 exception = true;
-                Log.e(getClass().getName(), ""+e.getMessage());
+                Log.e(getClass().getName(), Log.getStackTraceString(e));
             } catch (TimeoutException e) {
                 exception = true;
-                Log.e(getClass().getName(), ""+e.getMessage());
+                Log.e(getClass().getName(), Log.getStackTraceString(e));
             } finally {
                 if (executor != null) {
                     try {
                         executor.shutdown();
                     } catch (Exception e) {
                         exception = true;
-                        Log.e(getClass().getName(), ""+e.getMessage());
+                        Log.e(getClass().getName(), Log.getStackTraceString(e));
                     }
                 }
             }
@@ -362,20 +362,20 @@ public class AdminDialogFragment extends DialogFragment {
                 locations = future.get(10, TimeUnit.SECONDS);
             } catch (InterruptedException e) {
                 exception = true;
-                Log.e(getClass().getName(), ""+e.getMessage());
+                Log.e(getClass().getName(), Log.getStackTraceString(e));
             } catch (ExecutionException e) {
                 exception = true;
-                Log.e(getClass().getName(), ""+e.getMessage());
+                Log.e(getClass().getName(), Log.getStackTraceString(e));
             } catch (TimeoutException e) {
                 exception = true;
-                Log.e(getClass().getName(), ""+e.getMessage());
+                Log.e(getClass().getName(), Log.getStackTraceString(e));
             } finally {
                 if (executor != null) {
                     try {
                         executor.shutdown();
                     } catch (Exception e) {
                         exception = true;
-                        Log.e(getClass().getName(), ""+e.getMessage());
+                        Log.e(getClass().getName(), Log.getStackTraceString(e));
                     }
                 }
             }
@@ -407,13 +407,13 @@ public class AdminDialogFragment extends DialogFragment {
             try {
                 result = future.get(10, TimeUnit.SECONDS);
             } catch (InterruptedException e) {
-                Log.e(getClass().getName(), ""+e.getMessage());
+                Log.e(getClass().getName(), Log.getStackTraceString(e));
                 exception = true;
             } catch (ExecutionException e) {
-                Log.e(getClass().getName(), ""+e.getMessage());
+                Log.e(getClass().getName(), Log.getStackTraceString(e));
                 exception = true;
             } catch (TimeoutException e) {
-                Log.e(getClass().getName(), ""+e.getMessage());
+                Log.e(getClass().getName(), Log.getStackTraceString(e));
                 exception = true;
             } finally {
                 if (executor != null) {
@@ -421,7 +421,7 @@ public class AdminDialogFragment extends DialogFragment {
                         executor.shutdown();
                     } catch (Exception e) {
                         exception = true;
-                        Log.e(getClass().getName(), ""+e.getMessage());
+                        Log.e(getClass().getName(), Log.getStackTraceString(e));
                     }
                 }
             }
@@ -455,13 +455,13 @@ public class AdminDialogFragment extends DialogFragment {
             try {
                 result = future.get(10, TimeUnit.SECONDS);
             } catch (InterruptedException e) {
-                Log.e(getClass().getName(), ""+e.getMessage());
+                Log.e(getClass().getName(), Log.getStackTraceString(e));
                 exception = true;
             } catch (ExecutionException e) {
-                Log.e(getClass().getName(), ""+e.getMessage());
+                Log.e(getClass().getName(), Log.getStackTraceString(e));
                 exception = true;
             } catch (TimeoutException e) {
-                Log.e(getClass().getName(), ""+e.getMessage());
+                Log.e(getClass().getName(), Log.getStackTraceString(e));
                 exception = true;
             } finally {
                 if (executor != null) {
@@ -469,7 +469,7 @@ public class AdminDialogFragment extends DialogFragment {
                         executor.shutdown();
                     } catch (Exception e) {
                         exception = true;
-                        Log.e(getClass().getName(), ""+e.getMessage());
+                        Log.e(getClass().getName(), Log.getStackTraceString(e));
                     }
                 }
             }
@@ -504,13 +504,13 @@ public class AdminDialogFragment extends DialogFragment {
             try {
                 result = future.get(10, TimeUnit.SECONDS);
             } catch (InterruptedException e) {
-                Log.e(getClass().getName(), ""+e.getMessage());
+                Log.e(getClass().getName(), Log.getStackTraceString(e));
                 exception = true;
             } catch (ExecutionException e) {
-                Log.e(getClass().getName(), ""+e.getMessage());
+                Log.e(getClass().getName(), Log.getStackTraceString(e));
                 exception = true;
             } catch (TimeoutException e) {
-                Log.e(getClass().getName(), ""+e.getMessage());
+                Log.e(getClass().getName(), Log.getStackTraceString(e));
                 exception = true;
             } finally {
                 if (executor != null) {
@@ -518,7 +518,7 @@ public class AdminDialogFragment extends DialogFragment {
                         executor.shutdown();
                     } catch (Exception e) {
                         exception = true;
-                        Log.e(getClass().getName(), ""+e.getMessage());
+                        Log.e(getClass().getName(), Log.getStackTraceString(e));
                     }
                 }
             }
@@ -551,13 +551,13 @@ public class AdminDialogFragment extends DialogFragment {
             try {
                 result = future.get(10, TimeUnit.SECONDS);
             } catch (InterruptedException e) {
-                Log.e(getClass().getName(), ""+e.getMessage());
+                Log.e(getClass().getName(), Log.getStackTraceString(e));
                 exception = true;
             } catch (ExecutionException e) {
-                Log.e(getClass().getName(), ""+e.getMessage());
+                Log.e(getClass().getName(), Log.getStackTraceString(e));
                 exception = true;
             } catch (TimeoutException e) {
-                Log.e(getClass().getName(), ""+e.getMessage());
+                Log.e(getClass().getName(), Log.getStackTraceString(e));
                 exception = true;
             } finally {
                 if (executor != null) {
@@ -565,7 +565,7 @@ public class AdminDialogFragment extends DialogFragment {
                         executor.shutdown();
                     } catch (Exception e) {
                         exception = true;
-                        Log.e(getClass().getName(), ""+e.getMessage());
+                        Log.e(getClass().getName(), Log.getStackTraceString(e));
                     }
                 }
             }

@@ -149,13 +149,13 @@ public class MainActivity extends AppCompatActivity {
             try {
                 result = future.get(5, TimeUnit.SECONDS);
             } catch (InterruptedException e) {
-                Log.e(getClass().getName(), ""+e.getMessage());
+                Log.e(getClass().getName(), Log.getStackTraceString(e));
                 exception = true;
             } catch (ExecutionException e) {
-                Log.e(getClass().getName(), ""+e.getMessage());
+                Log.e(getClass().getName(), Log.getStackTraceString(e));
                 exception = true;
             } catch (TimeoutException e) {
-                Log.e(getClass().getName(), ""+e.getMessage());
+                Log.e(getClass().getName(), Log.getStackTraceString(e));
                 exception = true;
             } finally {
                 if (executor != null) {
@@ -163,7 +163,7 @@ public class MainActivity extends AppCompatActivity {
                         executor.shutdown();
                     } catch (Exception e) {
                         exception = true;
-                        Log.e(getClass().getName(), ""+e.getMessage());
+                        Log.e(getClass().getName(), Log.getStackTraceString(e));
                     }
                 }
             }
@@ -173,9 +173,9 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(AsyncResult asyncResult) {
             super.onPostExecute(asyncResult);
-            if (asyncResult.isException()) {
-                Utils.showToastAtBottom(MainActivity.this, R.string.unable_to_connect_to_server);
-            }
+//            if (asyncResult.isException()) {
+//                Utils.showToastAtBottom(MainActivity.this, R.string.unable_to_connect_to_server);
+//            }
         }
     }
 

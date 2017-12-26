@@ -59,10 +59,10 @@ public class DbUtil {
         Connection conn = null;
         try {
             conn = DriverManager.getConnection(getConnectionURL());
-        } catch (SQLException se) {
-            Log.e(DbUtil.class.getName(), se.getMessage());
+        } catch (SQLException e) {
+            Log.e(DbUtil.class.getName(), Log.getStackTraceString(e));
         } catch (Exception e) {
-            Log.e(DbUtil.class.getName(), e.getMessage());
+            Log.e(DbUtil.class.getName(), Log.getStackTraceString(e));
         }
         return conn;
     }
@@ -79,9 +79,9 @@ public class DbUtil {
             callableStatement.setInt(3, grade);
             return callableStatement.executeUpdate();
         } catch (SQLException e) {
-            Log.e(DbUtil.class.getName(), e.getMessage());
+            Log.e(DbUtil.class.getName(), Log.getStackTraceString(e));
         } catch (Exception e) {
-            Log.e(DbUtil.class.getName(), e.getMessage());
+            Log.e(DbUtil.class.getName(), Log.getStackTraceString(e));
         }
         return 0;
     }
@@ -92,7 +92,7 @@ public class DbUtil {
             callableStatement.setString(1, text);
             return callableStatement.executeUpdate();
         } catch (SQLException e) {
-            Log.e(DbUtil.class.getName(), e.getMessage());
+            Log.e(DbUtil.class.getName(), Log.getStackTraceString(e));
             return 0;
         }
     }
@@ -103,7 +103,7 @@ public class DbUtil {
             callableStatement.setInt(1, id);
             return callableStatement.executeUpdate();
         } catch (SQLException e) {
-            Log.e(DbUtil.class.getName(), e.getMessage());
+            Log.e(DbUtil.class.getName(), Log.getStackTraceString(e));
             return 0;
         }
     }
@@ -121,7 +121,7 @@ public class DbUtil {
                 ));
             }
         } catch (SQLException e) {
-            Log.e(DbUtil.class.getName(), e.getMessage());
+            Log.e(DbUtil.class.getName(), Log.getStackTraceString(e));
         }
         return list;
     }
@@ -132,7 +132,7 @@ public class DbUtil {
             callableStatement.setString(1, text);
             return callableStatement.executeUpdate();
         } catch (SQLException e) {
-            Log.e(DbUtil.class.getName(), e.getMessage());
+            Log.e(DbUtil.class.getName(), Log.getStackTraceString(e));
             return 0;
         }
     }
@@ -143,7 +143,7 @@ public class DbUtil {
             callableStatement.setInt(1, id);
             return callableStatement.executeUpdate();
         } catch (SQLException e) {
-            Log.e(DbUtil.class.getName(), e.getMessage());
+            Log.e(DbUtil.class.getName(), Log.getStackTraceString(e));
             return 0;
         }
     }
@@ -161,7 +161,7 @@ public class DbUtil {
                 ));
             }
         } catch (SQLException e) {
-            Log.e(DbUtil.class.getName(), e.getMessage());
+            Log.e(DbUtil.class.getName(), Log.getStackTraceString(e));
         }
         return list;
     }

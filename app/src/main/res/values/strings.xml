@@ -29,7 +29,7 @@
     <string name="unable_to_create_location">Unable to create location</string>
     <string name="location_created">Location created</string>
     <string name="please_select_question">Please select question</string>
-    <string name="please_select_location">Please select <location></location></string>
+    <string name="please_select_location">Please select location</string>
     <string name="please_insert_password">Please insert password</string>
     <string name="cancel">Cancel</string>
     <string name="close_console">Close console</string>
