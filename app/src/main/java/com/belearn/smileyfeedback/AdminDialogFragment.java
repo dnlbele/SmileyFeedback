@@ -52,7 +52,6 @@ public class AdminDialogFragment extends DialogFragment {
     private Question selectedQuestion = null;
 
     private MainActivity mainActivity;
-    private String location;
 
     public void setMainActivity(MainActivity mainActivity) {
         this.mainActivity = mainActivity;
@@ -96,7 +95,9 @@ public class AdminDialogFragment extends DialogFragment {
         btnCreate = view.findViewById(R.id.btnCreate);
         btnClose = view.findViewById(R.id.btnClose);
         pbDialog = view.findViewById(R.id.pbDialog);
-        if (location != null) {
+
+        String location = Utils.getLocation(getContext());
+        if ( location != null) {
             etLocation.setText(location);
         }
     }
@@ -118,7 +119,7 @@ public class AdminDialogFragment extends DialogFragment {
         btnAssign.setOnClickListener(view -> {
             if (assignFormIsValid()) {
                 mainActivity.setQuestion(selectedQuestion);
-                mainActivity.setLocation(etLocation.getText().toString().trim());
+                Utils.settLocation(getContext(), etLocation.getText().toString().trim());
                 AdminDialogFragment.this.dismiss();
             }
         });
@@ -180,11 +181,6 @@ public class AdminDialogFragment extends DialogFragment {
         }
         return true;
     }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
 
     private void disableFormAndShowDialog() {
         pbDialog.setVisibility(View.VISIBLE);

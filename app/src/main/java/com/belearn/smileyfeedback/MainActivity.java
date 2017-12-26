@@ -32,7 +32,6 @@ public class MainActivity extends AppCompatActivity {
 
     private static final long TIMEOUT_DIALOG = 10000;
     private Question question = null;
-    private String location = null;
     private TextView tvQuestion;
 
     @Override
@@ -94,7 +93,6 @@ public class MainActivity extends AppCompatActivity {
     public void showAdminDialog() {
         AdminDialogFragment adf = new AdminDialogFragment();
         adf.setMainActivity(this);
-        adf.setLocation(location);
         adf.show(getSupportFragmentManager(), AdminDialogFragment.class.getName());
     }
 
@@ -111,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private boolean formIsValid() {
-        if (location == null || location.trim().length() == 0 || question == null){
+        if (Utils.getLocation(this) == null || question == null){
             Utils.showToastAtBottom(this, R.string.please_insert_question);
             return false;
         }
@@ -124,17 +122,12 @@ public class MainActivity extends AppCompatActivity {
         tvQuestion.setText(question.toString());
     }
 
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
-
     private class CreateFeedbackAsyncTask extends AsyncTask<Integer, Void, AsyncResult> {
 
         @Override
         protected AsyncResult doInBackground(Integer... params) {
 
-            Callable<Integer>task = () -> DbUtil.createFeedback(question.getIdQuestion(), location, params[0]);
+            Callable<Integer>task = () -> DbUtil.createFeedback(question.getIdQuestion(), Utils.getLocation(MainActivity.this), params[0]);
             int result = 0;
             ExecutorService executor = Executors.newFixedThreadPool(1);
             Future<Integer> future = executor.submit(task);
