@@ -1,8 +1,11 @@
 package com.belearn.smileyfeedback;
 
 import android.app.Dialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
@@ -33,6 +36,13 @@ public class AuthenticationDialogFragment extends DialogFragment {
         params.height = WINDOW_HEIGHT;
         getDialog().getWindow().setAttributes((android.view.WindowManager.LayoutParams) params);
         super.onResume();
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        return super.onCreateView(inflater, container, savedInstanceState);
     }
 
     private MainActivity mainActivity;
