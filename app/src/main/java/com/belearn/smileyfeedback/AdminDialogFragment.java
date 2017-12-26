@@ -18,6 +18,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.belearn.smileyfeedback.model.AsyncResult;
+import com.belearn.smileyfeedback.model.Location;
 import com.belearn.smileyfeedback.model.Question;
 import com.belearn.smileyfeedback.utils.DbUtil;
 import com.belearn.smileyfeedback.utils.Utils;
@@ -39,17 +40,22 @@ import java.util.concurrent.TimeoutException;
 public class AdminDialogFragment extends DialogFragment {
 
     private static final int WINDOW_HEIGHT = 560;
-    private EditText etLocation;
-    private EditText etQuestion;
+    private EditText etQuestionLocation;
     private Spinner spQuestions;
+    private Spinner spLocations;
     private Button btnAssign;
-    private Button btnArchive;
-    private Button btnCreate;
+    private Button btnArchiveQuestion;
+    private Button btnArchiveLocation;
+    private Button btnCreateQuestion;
+    private Button btnCreateLocation;
     private Button btnClose;
     private ProgressBar pbDialog;
 
     private List<Question> questions;
     private Question selectedQuestion = null;
+
+    private List<Location> locations;
+    private Location selectedLocation = null;
 
     private MainActivity mainActivity;
 
@@ -81,25 +87,22 @@ public class AdminDialogFragment extends DialogFragment {
         setupListeners();
 
         disableFormAndShowDialog();
-        new FillQuestionsAsyncTask().execute();
-
+        new FillQuestionsLocationsAsyncTask().execute();
         return dialogBuilder.create();
     }
 
     private void initWidgets(View view) {
-        etLocation = view.findViewById(R.id.etLocation);
-        etQuestion= view.findViewById(R.id.etQuestion);
+        etQuestionLocation = view.findViewById(R.id.etQuestionLocation);
         spQuestions = view.findViewById(R.id.spQuestions);
+        spLocations = view.findViewById(R.id.spLocations);
         btnAssign = view.findViewById(R.id.btnAssign);
-        btnArchive = view.findViewById(R.id.btnArchive);
-        btnCreate = view.findViewById(R.id.btnCreate);
+        btnArchiveQuestion = view.findViewById(R.id.btnArchiveQuestion);
+        btnArchiveLocation = view.findViewById(R.id.btnArchiveLocation);
+        btnCreateQuestion = view.findViewById(R.id.btnCreateQuestion);
+        btnCreateLocation = view.findViewById(R.id.btnCreateLocation);
         btnClose = view.findViewById(R.id.btnClose);
         pbDialog = view.findViewById(R.id.pbDialog);
 
-        String location = Utils.getLocation(getContext());
-        if ( location != null) {
-            etLocation.setText(location);
-        }
     }
 
     private void setupListeners() {
@@ -116,25 +119,53 @@ public class AdminDialogFragment extends DialogFragment {
                 }
             }
         });
+        spLocations.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long id) {
+                selectedLocation = locations.get(pos);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                if (locations != null && locations.size() > 0) {
+                    selectedLocation = locations.get(0);
+                }
+            }
+        });
+
         btnAssign.setOnClickListener(view -> {
             if (assignFormIsValid()) {
                 mainActivity.setQuestion(selectedQuestion);
-                Utils.settLocation(getContext(), etLocation.getText().toString().trim());
+                mainActivity.setLocation(selectedLocation);
                 AdminDialogFragment.this.dismiss();
             }
         });
-        btnArchive.setOnClickListener(view -> {
-            if (archiveFormIsValid()) {
+        btnArchiveQuestion.setOnClickListener(view -> {
+            if (archiveQuestionFormIsValid()) {
                 disableFormAndShowDialog();
                 new ArchiveQuestionAsyncTask().execute();
 
             }
         });
-        btnCreate.setOnClickListener(view -> {
+        btnArchiveLocation.setOnClickListener(view -> {
+            if (archiveLocationFormIsValid()) {
+                disableFormAndShowDialog();
+                new ArchiveLocationAsyncTask().execute();
+
+            }
+        });
+        btnCreateQuestion.setOnClickListener(view -> {
             if (createFormIsValid()) {
-                Utils.closeKeyboard(mainActivity, etQuestion);
+                Utils.closeKeyboard(mainActivity, etQuestionLocation);
                 disableFormAndShowDialog();
                 new CreateQuestionAsyncTask().execute();
+            }
+        });
+        btnCreateLocation.setOnClickListener(view -> {
+            if (createFormIsValid()) {
+                Utils.closeKeyboard(mainActivity, etQuestionLocation);
+                disableFormAndShowDialog();
+                new CreateLocationAsyncTask().execute();
             }
         });
         btnClose.setOnClickListener(view -> {
@@ -142,20 +173,38 @@ public class AdminDialogFragment extends DialogFragment {
         });
     }
 
-    private void setupAdapter() {
-        List<String> list = new ArrayList<>();
+    private void setupQuestionsAdapter() {
+        List<String> listQuestions = new ArrayList<>();
         for (Question q : questions) {
-            list.add(q.toString());
+            listQuestions.add(q.toString());
         }
-        ArrayAdapter<String> adapter =
-                new ArrayAdapter<>(mainActivity, R.layout.spinner_item, list.toArray(new String[list.size()]));
-        spQuestions.setAdapter(adapter);
+        ArrayAdapter<String> adapterQuestions =
+                new ArrayAdapter<>(mainActivity, R.layout.spinner_item, listQuestions.toArray(new String[listQuestions.size()]));
+        spQuestions.setAdapter(adapterQuestions);
+
+        if (mainActivity.getQuestion() != null && questions.indexOf(mainActivity.getQuestion()) != -1) {
+            spQuestions.setSelection(questions.indexOf(mainActivity.getQuestion()));
+        }
+    }
+
+    private void setupLocationAdapter() {
+        List<String> listLocations = new ArrayList<>();
+        for (Location l : locations) {
+            listLocations.add(l.toString());
+        }
+        ArrayAdapter<String> adapterLocations =
+                new ArrayAdapter<>(mainActivity, R.layout.spinner_item, listLocations.toArray(new String[listLocations.size()]));
+        spLocations.setAdapter(adapterLocations);
+
+        if (mainActivity.getLocation() != null && locations.indexOf(mainActivity.getLocation()) != -1) {
+            spLocations.setSelection(locations.indexOf(mainActivity.getLocation()));
+        }
+
     }
 
     private boolean assignFormIsValid() {
-        if (etLocation.getText().toString().trim().length() == 0){
-            etLocation.setError(getString(R.string.please_insert_location));
-            etLocation.requestFocus();
+        if (spLocations.getSelectedItem() == null) {
+            Toast.makeText(mainActivity, R.string.please_select_location, Toast.LENGTH_SHORT).show();
             return false;
         }
         if (spQuestions.getSelectedItem() == null) {
@@ -165,18 +214,26 @@ public class AdminDialogFragment extends DialogFragment {
         return true;
     }
 
-    private boolean archiveFormIsValid() {
+    private boolean archiveQuestionFormIsValid() {
         if (spQuestions.getSelectedItem() == null) {
             Toast.makeText(mainActivity, R.string.please_select_question, Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
+    }
+
+    private boolean archiveLocationFormIsValid() {
+        if (spLocations.getSelectedItem() == null) {
+            Toast.makeText(mainActivity, R.string.please_select_location, Toast.LENGTH_SHORT).show();
             return false;
         }
         return true;
     }
 
     private boolean createFormIsValid() {
-        if (etQuestion.getText().toString().trim().length() == 0){
-            etQuestion.setError(getString(R.string.please_insert_question));
-            etQuestion.requestFocus();
+        if (etQuestionLocation.getText().toString().trim().length() == 0){
+            etQuestionLocation.setError(getString(R.string.please_insert_location_or_question));
+            etQuestionLocation.requestFocus();
             return false;
         }
         return true;
@@ -184,23 +241,73 @@ public class AdminDialogFragment extends DialogFragment {
 
     private void disableFormAndShowDialog() {
         pbDialog.setVisibility(View.VISIBLE);
-        btnArchive.setEnabled(false);
+        btnArchiveQuestion.setEnabled(false);
+        btnArchiveLocation.setEnabled(false);
         btnAssign.setEnabled(false);
-        btnCreate.setEnabled(false);
+        btnCreateQuestion.setEnabled(false);
+        btnCreateLocation.setEnabled(false);
         btnClose.setEnabled(false);
     }
 
     private void enableFormAndDissmissDialog() {
         pbDialog.setVisibility(View.INVISIBLE);
-        btnArchive.setEnabled(true);
+        btnArchiveQuestion.setEnabled(true);
+        btnArchiveLocation.setEnabled(true);
         btnAssign.setEnabled(true);
-        btnCreate.setEnabled(true);
+        btnCreateQuestion.setEnabled(true);
+        btnCreateLocation.setEnabled(true);
         btnClose.setEnabled(true);
     }
 
 
-    private class FillQuestionsAsyncTask extends AsyncTask<Void, Void, Boolean> {
+    private class FillQuestionsLocationsAsyncTask extends AsyncTask<Void, Void, Boolean> {
+        @Override
+        protected Boolean doInBackground(Void... voids) {
+            Callable<List<Question>> taskQuestions = () -> DbUtil.selectActiveQuestions();
+            Callable<List<Location>> taskLocations = () -> DbUtil.selectActiveLocations();
+            ExecutorService executor = Executors.newFixedThreadPool(2);
+            Future<List<Question>> futureQuestion = executor.submit(taskQuestions);
+            Future<List<Location>> futureLocation = executor.submit(taskLocations);
+            boolean exception = false;
+            try {
+                questions = futureQuestion.get(10, TimeUnit.SECONDS);
+                locations = futureLocation.get(10, TimeUnit.SECONDS);
+            } catch (InterruptedException e) {
+                exception = true;
+                Log.e(getClass().getName(), ""+e.getMessage());
+            } catch (ExecutionException e) {
+                exception = true;
+                Log.e(getClass().getName(), ""+e.getMessage());
+            } catch (TimeoutException e) {
+                exception = true;
+                Log.e(getClass().getName(), ""+e.getMessage());
+            } finally {
+                if (executor != null) {
+                    try {
+                        executor.shutdown();
+                    } catch (Exception e) {
+                        exception = true;
+                        Log.e(getClass().getName(), ""+e.getMessage());
+                    }
+                }
+            }
+            return exception;
+        }
+        @Override
+        protected void onPostExecute(Boolean exception) {
+            super.onPostExecute(exception);
+            if (exception) {
+                Utils.showToastAtBottom(getContext(), R.string.unable_to_connect_to_server);
+                dismiss();
+            } else {
+                setupQuestionsAdapter();
+                setupLocationAdapter();
+                enableFormAndDissmissDialog();
+            }
+        }
+    }
 
+    private class FillQuestionsAsyncTask extends AsyncTask<Void, Void, Boolean> {
         @Override
         protected Boolean doInBackground(Void... voids) {
             Callable<List<Question>> task = () -> DbUtil.selectActiveQuestions();
@@ -218,10 +325,18 @@ public class AdminDialogFragment extends DialogFragment {
             } catch (TimeoutException e) {
                 exception = true;
                 Log.e(getClass().getName(), ""+e.getMessage());
+            } finally {
+                if (executor != null) {
+                    try {
+                        executor.shutdown();
+                    } catch (Exception e) {
+                        exception = true;
+                        Log.e(getClass().getName(), ""+e.getMessage());
+                    }
+                }
             }
             return exception;
         }
-
         @Override
         protected void onPostExecute(Boolean exception) {
             super.onPostExecute(exception);
@@ -229,21 +344,62 @@ public class AdminDialogFragment extends DialogFragment {
                 Utils.showToastAtBottom(getContext(), R.string.unable_to_connect_to_server);
                 dismiss();
             } else {
-                setupAdapter();
+                setupQuestionsAdapter();
                 enableFormAndDissmissDialog();
                 spQuestions.setSelection(questions.size() - 1);
-                etQuestion.setText("");
+            }
+        }
+    }
+
+    private class FillLocationsAsyncTask extends AsyncTask<Void, Void, Boolean> {
+        @Override
+        protected Boolean doInBackground(Void... voids) {
+            Callable<List<Location>> task = () -> DbUtil.selectActiveLocations();
+            ExecutorService executor = Executors.newFixedThreadPool(1);
+            Future<List<Location>> future = executor.submit(task);
+            boolean exception = false;
+            try {
+                locations = future.get(10, TimeUnit.SECONDS);
+            } catch (InterruptedException e) {
+                exception = true;
+                Log.e(getClass().getName(), ""+e.getMessage());
+            } catch (ExecutionException e) {
+                exception = true;
+                Log.e(getClass().getName(), ""+e.getMessage());
+            } catch (TimeoutException e) {
+                exception = true;
+                Log.e(getClass().getName(), ""+e.getMessage());
+            } finally {
+                if (executor != null) {
+                    try {
+                        executor.shutdown();
+                    } catch (Exception e) {
+                        exception = true;
+                        Log.e(getClass().getName(), ""+e.getMessage());
+                    }
+                }
+            }
+            return exception;
+        }
+        @Override
+        protected void onPostExecute(Boolean exception) {
+            super.onPostExecute(exception);
+            if (exception) {
+                Utils.showToastAtBottom(getContext(), R.string.unable_to_connect_to_server);
+                dismiss();
+            } else {
+                setupLocationAdapter();
+                enableFormAndDissmissDialog();
+                spLocations.setSelection(locations.size() - 1);
             }
         }
     }
 
 
     private class CreateQuestionAsyncTask extends AsyncTask<Void, Void, AsyncResult> {
-
         @Override
         protected AsyncResult doInBackground(Void... voids) {
-
-            Callable<Integer>task = () -> DbUtil.createQuestion(etQuestion.getText().toString());
+            Callable<Integer>task = () -> DbUtil.createQuestion(etQuestionLocation.getText().toString());
             int result = 0;
             ExecutorService executor = Executors.newFixedThreadPool(1);
             Future<Integer> future = executor.submit(task);
@@ -259,11 +415,18 @@ public class AdminDialogFragment extends DialogFragment {
             } catch (TimeoutException e) {
                 Log.e(getClass().getName(), ""+e.getMessage());
                 exception = true;
+            } finally {
+                if (executor != null) {
+                    try {
+                        executor.shutdown();
+                    } catch (Exception e) {
+                        exception = true;
+                        Log.e(getClass().getName(), ""+e.getMessage());
+                    }
+                }
             }
-
             return new AsyncResult(exception, result);
         }
-
         @Override
         protected void onPostExecute(AsyncResult asyncResult) {
             super.onPostExecute(asyncResult);
@@ -275,13 +438,61 @@ public class AdminDialogFragment extends DialogFragment {
                 enableFormAndDissmissDialog();
             } else {
                 Toast.makeText(mainActivity, R.string.question_created, Toast.LENGTH_SHORT).show();
+                etQuestionLocation.setText("");
                 new FillQuestionsAsyncTask().execute();
             }
         }
     }
 
-    private class ArchiveQuestionAsyncTask extends AsyncTask<Void, Void, AsyncResult> {
+    private class CreateLocationAsyncTask extends AsyncTask<Void, Void, AsyncResult> {
+        @Override
+        protected AsyncResult doInBackground(Void... voids) {
+            Callable<Integer>task = () -> DbUtil.createLocation(etQuestionLocation.getText().toString());
+            int result = 0;
+            ExecutorService executor = Executors.newFixedThreadPool(1);
+            Future<Integer> future = executor.submit(task);
+            boolean exception = false;
+            try {
+                result = future.get(10, TimeUnit.SECONDS);
+            } catch (InterruptedException e) {
+                Log.e(getClass().getName(), ""+e.getMessage());
+                exception = true;
+            } catch (ExecutionException e) {
+                Log.e(getClass().getName(), ""+e.getMessage());
+                exception = true;
+            } catch (TimeoutException e) {
+                Log.e(getClass().getName(), ""+e.getMessage());
+                exception = true;
+            } finally {
+                if (executor != null) {
+                    try {
+                        executor.shutdown();
+                    } catch (Exception e) {
+                        exception = true;
+                        Log.e(getClass().getName(), ""+e.getMessage());
+                    }
+                }
+            }
+            return new AsyncResult(exception, result);
+        }
+        @Override
+        protected void onPostExecute(AsyncResult asyncResult) {
+            super.onPostExecute(asyncResult);
+            if (asyncResult.isException()) {
+                Utils.showToastAtBottom(getContext(), R.string.unable_to_connect_to_server);
+                dismiss();
+            } else if (asyncResult.getResult() == 0) {
+                Toast.makeText(mainActivity, R.string.unable_to_create_location, Toast.LENGTH_SHORT).show();
+                enableFormAndDissmissDialog();
+            } else {
+                Toast.makeText(mainActivity, R.string.location_created, Toast.LENGTH_SHORT).show();
+                etQuestionLocation.setText("");
+                new FillLocationsAsyncTask().execute();
+            }
+        }
+    }
 
+    private class ArchiveQuestionAsyncTask extends AsyncTask<Void, Void, AsyncResult> {
         @Override
         protected AsyncResult doInBackground(Void... voids) {
 
@@ -301,10 +512,18 @@ public class AdminDialogFragment extends DialogFragment {
             } catch (TimeoutException e) {
                 Log.e(getClass().getName(), ""+e.getMessage());
                 exception = true;
+            } finally {
+                if (executor != null) {
+                    try {
+                        executor.shutdown();
+                    } catch (Exception e) {
+                        exception = true;
+                        Log.e(getClass().getName(), ""+e.getMessage());
+                    }
+                }
             }
             return new AsyncResult(exception, result);
         }
-
         @Override
         protected void onPostExecute(AsyncResult asyncResult) {
             super.onPostExecute(asyncResult);
@@ -320,5 +539,54 @@ public class AdminDialogFragment extends DialogFragment {
             }
         }
     }
+
+    private class ArchiveLocationAsyncTask extends AsyncTask<Void, Void, AsyncResult> {
+        @Override
+        protected AsyncResult doInBackground(Void... voids) {
+            Callable<Integer>task = () -> DbUtil.archiveLocation(selectedLocation.getIdLocation());
+            int result = 0;
+            ExecutorService executor = Executors.newFixedThreadPool(1);
+            Future<Integer> future = executor.submit(task);
+            boolean exception = false;
+            try {
+                result = future.get(10, TimeUnit.SECONDS);
+            } catch (InterruptedException e) {
+                Log.e(getClass().getName(), ""+e.getMessage());
+                exception = true;
+            } catch (ExecutionException e) {
+                Log.e(getClass().getName(), ""+e.getMessage());
+                exception = true;
+            } catch (TimeoutException e) {
+                Log.e(getClass().getName(), ""+e.getMessage());
+                exception = true;
+            } finally {
+                if (executor != null) {
+                    try {
+                        executor.shutdown();
+                    } catch (Exception e) {
+                        exception = true;
+                        Log.e(getClass().getName(), ""+e.getMessage());
+                    }
+                }
+            }
+            return new AsyncResult(exception, result);
+        }
+
+        @Override
+        protected void onPostExecute(AsyncResult asyncResult) {
+            super.onPostExecute(asyncResult);
+            if (asyncResult.isException()) {
+                Utils.showToastAtBottom(getContext(), R.string.unable_to_connect_to_server);
+                dismiss();
+            } else if (asyncResult.getResult() == 0) {
+                Toast.makeText(mainActivity, R.string.unable_to_archive_location, Toast.LENGTH_SHORT).show();
+                enableFormAndDissmissDialog();
+            } else {
+                Toast.makeText(mainActivity, R.string.location_archived, Toast.LENGTH_SHORT).show();
+                new FillLocationsAsyncTask().execute();
+            }
+        }
+    }
+
 
 }

@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.belearn.smileyfeedback.model.AsyncResult;
+import com.belearn.smileyfeedback.model.Location;
 import com.belearn.smileyfeedback.model.Question;
 import com.belearn.smileyfeedback.utils.AnimationUtils;
 import com.belearn.smileyfeedback.utils.DbUtil;
@@ -32,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static final long TIMEOUT_DIALOG = 10000;
     private Question question = null;
+    private Location location = null;
     private TextView tvQuestion;
 
     @Override
@@ -109,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private boolean formIsValid() {
-        if (Utils.getLocation(this) == null || question == null){
+        if (location == null || question == null){
             Utils.showToastAtBottom(this, R.string.please_insert_question);
             return false;
         }
@@ -117,9 +119,21 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    public Question getQuestion() {
+        return question;
+    }
+
     public void setQuestion(Question question) {
         this.question = question;
         tvQuestion.setText(question.toString());
+    }
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
     }
 
     private class CreateFeedbackAsyncTask extends AsyncTask<Integer, Void, AsyncResult> {
@@ -127,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected AsyncResult doInBackground(Integer... params) {
 
-            Callable<Integer>task = () -> DbUtil.createFeedback(question.getIdQuestion(), Utils.getLocation(MainActivity.this), params[0]);
+            Callable<Integer>task = () -> DbUtil.createFeedback(question.getIdQuestion(), location.getIdLocation(), params[0]);
             int result = 0;
             ExecutorService executor = Executors.newFixedThreadPool(1);
             Future<Integer> future = executor.submit(task);
@@ -143,8 +157,16 @@ public class MainActivity extends AppCompatActivity {
             } catch (TimeoutException e) {
                 Log.e(getClass().getName(), ""+e.getMessage());
                 exception = true;
+            } finally {
+                if (executor != null) {
+                    try {
+                        executor.shutdown();
+                    } catch (Exception e) {
+                        exception = true;
+                        Log.e(getClass().getName(), ""+e.getMessage());
+                    }
+                }
             }
-
             return new AsyncResult(exception, result);
         }
 

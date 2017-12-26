@@ -4,16 +4,16 @@ package com.belearn.smileyfeedback.model;
  * Created by dnlbe on 12/20/2017.
  */
 
-public class Question {
-    private int idQuestion;
+public class Location {
+    private int idLocation;
     private String text;
     private int active;
 
-    public int getIdQuestion() {
-        return idQuestion;
+    public int getIdLocation() {
+        return idLocation;
     }
-    public Question(int idQuestion, String text, int active) {
-        this.idQuestion = idQuestion;
+    public Location(int idLocation, String text, int active) {
+        this.idLocation = idLocation;
         this.text = text;
         this.active = active;
     }
@@ -25,12 +25,10 @@ public class Question {
 
     @Override
     public boolean equals(Object obj) {
-        if (!(obj instanceof Question)) {
+        if (!(obj instanceof Location)) {
             return false;
         }
-        return this.idQuestion == ((Question)obj).idQuestion;
+        return this.idLocation == ((Location)obj).idLocation;
     }
-
-
 }
 

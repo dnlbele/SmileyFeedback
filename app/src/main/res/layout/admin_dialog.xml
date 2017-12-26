@@ -22,28 +22,41 @@
         android:textSize="25sp"
         android:textColor="#c21b67"
         android:textStyle="bold|italic"
-        android:text="@string/create_new_question"
+        android:text="@string/create_new_location_or_question"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
     <EditText
         android:layout_gravity="right"
         android:imeOptions="flagNoExtractUi|actionDone"
-        android:hint="@string/please_insert_question"
+        android:hint="@string/please_insert_location_or_question"
         android:textColor="@color/colorPrimary"
         android:textSize="25sp"
-        android:id="@+id/etQuestion"
+        android:id="@+id/etQuestionLocation"
         android:layout_width="450dp"
         android:layout_height="wrap_content"
         android:inputType="text" />
-    <Button
+    <LinearLayout
         android:layout_marginTop="35dp"
-        android:padding="10dp"
-        android:id="@+id/btnCreate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_gravity="right"
-        android:background="@drawable/custom_button_ok"
-        android:text="@string/create_new_question" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <Button
+            android:layout_marginRight="40dp"
+            android:padding="10dp"
+            android:id="@+id/btnCreateLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/custom_button_ok"
+            android:text="@string/create_new_location" />
+        <Button
+            android:padding="10dp"
+            android:id="@+id/btnCreateQuestion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/custom_button_ok"
+            android:text="@string/create_new_question" />
+
+    </LinearLayout>
     <ProgressBar
         android:background="@drawable/progress"
         android:id="@+id/pbDialog"
@@ -61,16 +74,12 @@
         android:text="@string/assign_location"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
-    <EditText
+    <Spinner
         android:layout_gravity="right"
-        android:imeOptions="flagNoExtractUi"
-        android:hint="@string/please_insert_location"
-        android:textSize="25sp"
-        android:textColor="@color/colorPrimary"
-        android:id="@+id/etLocation"
+        android:layout_marginTop="10dp"
+        android:id="@+id/spLocations"
         android:layout_width="450dp"
-        android:layout_height="wrap_content"
-        android:inputType="text" />
+        android:layout_height="wrap_content"/>
     <TextView
         android:layout_marginTop="30dp"
         android:textColor="#e27526"
@@ -104,15 +113,25 @@
         <Button
             android:padding="10dp"
             android:layout_marginRight="20dp"
-            android:id="@+id/btnArchive"
+            android:id="@+id/btnArchiveLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:background="@drawable/custom_button_danger"
+            android:text="@string/archive_location" />
+        <Button
+            android:padding="10dp"
+            android:layout_marginRight="20dp"
+            android:id="@+id/btnArchiveQuestion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
             android:background="@drawable/custom_button_danger"
             android:text="@string/archive_question" />
+
         <Button
             android:padding="10dp"
-            android:layout_marginLeft="50dp"
+            android:layout_marginLeft="20dp"
             android:id="@+id/btnAssign"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
