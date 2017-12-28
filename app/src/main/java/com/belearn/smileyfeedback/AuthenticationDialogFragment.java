@@ -22,7 +22,7 @@ import com.belearn.smileyfeedback.utils.Utils;
 
 public class AuthenticationDialogFragment extends DialogFragment {
 
-    private static final int WINDOW_WIDTH = 450;
+    private static final int WINDOW_WIDTH = 540;
     private static final int WINDOW_HEIGHT = 180;
     private static final String PASSWORD = "p@ssw0rd";
 

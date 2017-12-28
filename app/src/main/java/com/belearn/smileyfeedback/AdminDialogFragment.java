@@ -67,8 +67,8 @@ public class AdminDialogFragment extends DialogFragment {
     public void onResume() {
         ViewGroup.LayoutParams params = getDialog().getWindow().getAttributes();
         params.width = ViewGroup.LayoutParams.MATCH_PARENT;
-        //params.height= ViewGroup.LayoutParams.MATCH_PARENT;
-        params.height = WINDOW_HEIGHT;
+        params.height= ViewGroup.LayoutParams.MATCH_PARENT;
+        //params.height = WINDOW_HEIGHT;
         getDialog().getWindow().setAttributes((android.view.WindowManager.LayoutParams) params);
         super.onResume();
     }
