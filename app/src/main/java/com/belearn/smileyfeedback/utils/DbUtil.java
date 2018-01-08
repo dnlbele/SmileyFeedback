@@ -20,11 +20,11 @@ import java.util.List;
  */
 
 public class DbUtil {
-    private static final String IP = "192.168.0.22:1433";
+    private static final String IP = "den1.mssql1.gear.host";
     //private static final String IP = "127.0.0.1:1433";
     private static final String DATABASE = "EmoticonFeedback";
-    private static final String USERNAME = "sa";
-    private static final String PASSWORD = "SQL";
+    private static final String USERNAME = "emoticonfeedback";
+    private static final String PASSWORD = "Ir0eHy!t_Qrh";
 
     private static final String CREATE_FEEDBACK = "{call CreateFeedback(?, ?, ?)}";
     private static final String CREATE_QUESTION = "{call CreateQuestion(?)}";
