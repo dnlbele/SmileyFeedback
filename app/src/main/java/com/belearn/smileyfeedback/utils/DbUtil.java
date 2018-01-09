@@ -12,7 +12,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -20,13 +22,21 @@ import java.util.List;
  */
 
 public class DbUtil {
-    private static final String IP = "den1.mssql1.gear.host";
-    //private static final String IP = "127.0.0.1:1433";
+
+
+    private static final SimpleDateFormat SIMPLE_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+
+//    private static final String IP = "192.168.0.22:1433";
+//    private static final String DATABASE = "EmoticonFeedback";
+//    private static final String USERNAME = "sa";
+//    private static final String PASSWORD = "SQL";
+
+    private static final String IP = "den1.mssql6.gear.host";
     private static final String DATABASE = "EmoticonFeedback";
     private static final String USERNAME = "emoticonfeedback";
-    private static final String PASSWORD = "Ir0eHy!t_Qrh";
+    private static final String PASSWORD = "Rx7ub-ODLR~4";
 
-    private static final String CREATE_FEEDBACK = "{call CreateFeedback(?, ?, ?)}";
+    private static final String CREATE_FEEDBACK = "{call CreateFeedback(?, ?, ?, ?)}";
     private static final String CREATE_QUESTION = "{call CreateQuestion(?)}";
     private static final String ARCHIVE_QUESTION = "{call ArchiveQuestion(?)}";
     private static final String SELECT_ACTIVE_QUESTIONS = "{call SelectActiveQuestions}";
@@ -77,6 +87,7 @@ public class DbUtil {
             callableStatement.setInt(1, questionId);
             callableStatement.setInt(2, locationId);
             callableStatement.setInt(3, grade);
+            callableStatement.setString(4, SIMPLE_DATE_FORMAT.format(Calendar.getInstance().getTime()));
             return callableStatement.executeUpdate();
         } catch (SQLException e) {
             Log.e(DbUtil.class.getName(), Log.getStackTraceString(e));

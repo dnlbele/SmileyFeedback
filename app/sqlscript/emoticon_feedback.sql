@@ -68,10 +68,11 @@ GO
 CREATE PROCEDURE CreateFeedback
 	@QuestionID int,
 	@LocationID int,
-	@Grade int
+	@Grade int,
+	@DateAndTime varchar(24)
 AS
 	BEGIN 
-		INSERT INTO Feedback (QuestionID, LocationID, Grade, DateAndTime) VALUES(@QuestionID, @LocationID, @Grade, GETDATE())
+		INSERT INTO Feedback (QuestionID, LocationID, Grade, DateAndTime) VALUES(@QuestionID, @LocationID, @Grade, @DateAndTime)
 	END 
 GO
 

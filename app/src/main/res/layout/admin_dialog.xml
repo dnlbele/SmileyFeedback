@@ -32,10 +32,10 @@
         android:textColor="@color/colorPrimary"
         android:textSize="25sp"
         android:id="@+id/etQuestionLocation"
-        android:layout_width="450dp"
+        android:layout_width="480dp"
         android:layout_height="wrap_content"
         android:inputType="text" />
-    <LinearLayout
+    <LinearLayoutf
         android:layout_marginTop="35dp"
         android:layout_gravity="right"
         android:layout_width="wrap_content"
@@ -56,7 +56,7 @@
             android:background="@drawable/custom_button_ok"
             android:text="@string/create_new_question" />
 
-    </LinearLayout>
+    </LinearLayoutf>
     <ProgressBar
         android:background="@drawable/progress"
         android:id="@+id/pbDialog"
@@ -78,7 +78,7 @@
         android:layout_gravity="right"
         android:layout_marginTop="10dp"
         android:id="@+id/spLocations"
-        android:layout_width="450dp"
+        android:layout_width="480dp"
         android:layout_height="wrap_content"/>
     <TextView
         android:layout_marginTop="30dp"
@@ -93,7 +93,7 @@
         android:layout_gravity="right"
         android:layout_marginTop="10dp"
         android:id="@+id/spQuestions"
-        android:layout_width="450dp"
+        android:layout_width="480dp"
         android:layout_height="wrap_content"/>
     <LinearLayout
         android:layout_marginTop="30dp"
