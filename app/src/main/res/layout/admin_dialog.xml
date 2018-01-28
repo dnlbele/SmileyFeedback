@@ -26,16 +26,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
     <EditText
+        android:layout_marginTop="10dp"
+        android:background="@drawable/widgets_bg"
         android:layout_gravity="right"
+        android:padding="10dp"
         android:imeOptions="flagNoExtractUi|actionDone"
         android:hint="@string/please_insert_location_or_question"
         android:textColor="@color/colorPrimary"
-        android:textSize="25sp"
+        android:textSize="23sp"
         android:id="@+id/etQuestionLocation"
-        android:layout_width="480dp"
+        android:layout_width="600dp"
         android:layout_height="wrap_content"
         android:inputType="text" />
-    <LinearLayoutf
+    <LinearLayout
         android:layout_marginTop="35dp"
         android:layout_gravity="right"
         android:layout_width="wrap_content"
@@ -56,7 +59,7 @@
             android:background="@drawable/custom_button_ok"
             android:text="@string/create_new_question" />
 
-    </LinearLayoutf>
+    </LinearLayout>
     <ProgressBar
         android:background="@drawable/progress"
         android:id="@+id/pbDialog"
@@ -75,10 +78,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
     <Spinner
+        android:background="@drawable/widgets_bg"
         android:layout_gravity="right"
         android:layout_marginTop="10dp"
         android:id="@+id/spLocations"
-        android:layout_width="480dp"
+        android:layout_width="600dp"
         android:layout_height="wrap_content"/>
     <TextView
         android:layout_marginTop="30dp"
@@ -90,13 +94,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
     <Spinner
+        android:background="@drawable/widgets_bg"
         android:layout_gravity="right"
         android:layout_marginTop="10dp"
         android:id="@+id/spQuestions"
-        android:layout_width="480dp"
+        android:layout_width="600dp"
         android:layout_height="wrap_content"/>
     <LinearLayout
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="60dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <Button
@@ -137,7 +142,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="right"
             android:background="@drawable/custom_button_ok"
-            android:text="@string/assign" />
+            android:text="Assign location to question" />
     </LinearLayout>
 
 </LinearLayout>
